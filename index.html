@@ -153,50 +153,53 @@
         .ebook-card {
             background: #FFFFFF;
             border-radius: 16px;
-            padding: 30px;
+            padding: 40px 30px 30px 30px;
+            /* increased top padding */
             position: relative;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             color: #333;
             text-align: center;
-            overflow: hidden;
+            /* overflow: hidden; REMOVED to allow badge to overlapping if needed, but user asked to move it down */
         }
 
-        .badge-free {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background-color: var(--secondary-green);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 14px;
-            box-shadow: 0 4px 10px rgba(84, 193, 98, 0.3);
-            z-index: 10;
-        }
+        /* Updated Badge Style handled in lower block */
 
         /* CSS 3D Book Approximation */
         .book-mockup-container {
-            width: 200px;
+            width: 260px;
             height: 280px;
-            margin: 0 auto 20px auto;
+            margin: 30px auto 20px auto;
             position: relative;
             perspective: 1000px;
         }
 
         .book {
-            width: 100%;
-            height: 100%;
+            width: 180px;
+            height: 260px;
             position: absolute;
+            top: 10px;
             transform-style: preserve-3d;
-            transform: rotateY(-15deg);
             transition: transform 0.5s ease;
             box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.3);
             border-radius: 5px 15px 15px 5px;
         }
 
+        .book-back {
+            left: 0;
+            transform: translateZ(-50px) translateX(-50px) rotateY(-15deg);
+            z-index: 1;
+            filter: brightness(0.9);
+        }
+
+        .book-front {
+            right: 0;
+            transform: translateZ(20px) translateX(30px) rotateY(-15deg);
+            z-index: 2;
+        }
+
         .book:hover {
             transform: rotateY(0deg) scale(1.05);
+            z-index: 10;
         }
 
         .book-cover {
@@ -215,17 +218,26 @@
             /* Spine effect */
         }
 
+        /* Specific cover for back book */
+        .book-back .book-cover {
+            background: linear-gradient(135deg, #1fa34a 0%, #4ade80 150%);
+        }
+
         .book-icon {
-            font-size: 60px;
+            font-size: 50px;
             margin-bottom: 20px;
             color: var(--secondary-green);
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
         }
 
+        .book-back .book-icon {
+            color: #ffffff;
+        }
+
         .book-title {
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
-            font-size: 20px;
+            font-size: 18px;
             text-transform: uppercase;
             line-height: 1.2;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -234,9 +246,30 @@
         .ebook-card h3 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
-            font-size: 22px;
+            font-size: 20px;
             color: var(--bg-dark);
-            margin-top: 10px;
+            margin-top: 15px;
+        }
+
+        .badge-free {
+            position: absolute;
+            top: 15px;
+            /* Moved down */
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, #00C853 0%, #00E676 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(0, 200, 83, 0.4);
+            z-index: 20;
+            width: max-content;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
         }
 
         .benefits-section {
@@ -476,12 +509,11 @@
         <!-- SECTION 1: HERO -->
         <section class="hero">
             <h1 class="main-headline">
-                DESCUBRA COMO FUNCIONA O APP<br>
-                QUE JÁ AJUDOU <span class="highlight-green">847 DIABÉTICOS</span><br>
-                A DORMIREM MAIS <span class="highlight-green">TRANQUILOS</span>
+                PARE DE VIVER COM MEDO<br>
+                DAS <span class="highlight-green">CRISES DE HIPOGLICEMIA</span>
             </h1>
             <h2 class="sub-headline">
-                Cadastre-se Agora e Receba o Guia Completo de Como Usar o Glicemia Inteligente
+                Descubra o método que 847 diabéticos usam para controlar a glicemia sem papéis, sem estresse e sem medo
             </h2>
         </section>
 
@@ -491,43 +523,59 @@
             <!-- LEFT COL: E-BOOK & BENEFITS -->
             <div class="left-col">
                 <div class="ebook-card">
-                    <span class="badge-free">GRÁTIS</span>
+                    <span class="badge-free">
+                        <i class="fa-solid fa-gift"></i>
+                        GRÁTIS POR TEMPO LIMITADO
+                    </span>
 
                     <!-- 3D Book Visual Placeholder -->
                     <div class="book-mockup-container">
-                        <div class="book">
+                        <!-- Book 1 (Back) -->
+                        <div class="book book-back">
                             <div class="book-cover">
-                                <i class="fa-solid fa-book-medical book-icon"></i>
+                                <i class="fa-solid fa-user-doctor book-icon"></i>
+                                <div class="book-title">
+                                    EBOOK<br>
+                                    DRA. MALENA<br>
+                                    XAVIER
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Book 2 (Front) -->
+                        <div class="book book-front">
+                            <div class="book-cover">
+                                <i class="fa-solid fa-mobile-screen book-icon"></i>
                                 <div class="book-title">
                                     GUIA<br>
-                                    GLICEMIA<br>
+                                    DO APP<br>
                                     INTELIGENTE
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <h3>Guia Completo: Como Funciona o Glicemia Inteligente</h3>
+                    <h3>2 E-books Especializados + Material Exclusivo</h3>
                 </div>
 
                 <div class="benefits-section">
-                    <h4 class="benefits-title">Você vai entender:</h4>
+                    <h4 class="benefits-title">O QUE VOCÊ VAI DESCOBRIR:</h4>
                     <ul class="benefits-list">
                         <li>
                             <i class="fa-solid fa-check-circle"></i>
-                            <span>Por que 847 pessoas escolheram este app</span>
+                            <span>Como NUNCA MAIS acordar de madrugada com medo de hipoglicemia</span>
                         </li>
                         <li>
                             <i class="fa-solid fa-check-circle"></i>
-                            <span>Como a Glícia simplifica seu controle</span>
+                            <span>O método que reduziu hemoglobina glicada de 8.2 para 6.8 em 3 meses</span>
                         </li>
                         <li>
                             <i class="fa-solid fa-check-circle"></i>
-                            <span>Como usar alertas para prevenir crises</span>
+                            <span>Como chegar na consulta médica COM TODOS os dados organizados (sem papéis
+                                perdidos)</span>
                         </li>
                         <li>
                             <i class="fa-solid fa-check-circle"></i>
-                            <span>Como ter relatórios prontos em 1 clique</span>
+                            <span>A ferramenta que 847 diabéticos usam para ter controle REAL da glicemia</span>
                         </li>
                     </ul>
                 </div>
@@ -536,7 +584,26 @@
             <!-- RIGHT COL: FORM -->
             <div class="right-col">
                 <div class="capture-form-card">
-                    <h3 class="form-title">PREENCHA PARA RECEBER:</h3>
+                    <h3 class="form-title">
+                        <i class="fa-solid fa-envelope"></i>
+                        PREENCHA PARA RECEBER:
+                    </h3>
+                    <p
+                        style="text-align: center; color: var(--text-gray); font-size: 14px; margin-bottom: 20px; font-weight: 500;">
+                        Cadastro 100% gratuito • Material enviado em 2 minutos
+                    </p>
+
+                    <div
+                        style="display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;">
+                        <span
+                            style="border: 1px solid #ff4757; color: #ff6b81; padding: 5px 15px; border-radius: 20px; font-size: 13px; display: flex; align-items: center; gap: 5px; background: rgba(255, 71, 87, 0.1); font-weight: 600;">
+                            <i class="fa-regular fa-clock"></i> Últimas 97 vagas hoje
+                        </span>
+                        <span
+                            style="border: 1px solid #ffa502; color: #ffb822; padding: 5px 15px; border-radius: 20px; font-size: 13px; display: flex; align-items: center; gap: 5px; background: rgba(255, 165, 2, 0.1); font-weight: 600;">
+                            <i class="fa-solid fa-fire"></i> 347 já baixaram hoje
+                        </span>
+                    </div>
 
                     <form id="captureForm" action="#" method="POST">
                         <div class="form-group">
@@ -558,31 +625,26 @@
                         </div>
 
                         <button type="submit" class="cta-btn">
-                            <i class="fa-solid fa-book-open"></i>
-                            QUERO ENTENDER COMO FUNCIONA
+                            <i class="fa-solid fa-download"></i>
+                            QUERO RECEBER GRÁTIS AGORA
                         </button>
 
-                        <div class="security-text">
-                            <i class="fa-solid fa-lock"></i>
-                            <span>100% seguro e sem spam. Você receberá o guia no e-mail em até 2 minutos</span>
+                        <div
+                            style="display: flex; justify-content: center; gap: 15px; margin-top: 15px; font-size: 11px; color: var(--text-gray); flex-wrap: wrap;">
+                            <span style="display: flex; align-items: center; gap: 4px;">
+                                <i class="fa-solid fa-lock" style="color: #FFD700;"></i> Dados protegidos
+                            </span>
+                            <span style="display: flex; align-items: center; gap: 4px;">
+                                <i class="fa-solid fa-envelope" style="color: #fff;"></i> E-mail instantâneo
+                            </span>
+                            <span style="display: flex; align-items: center; gap: 4px;">
+                                <i class="fa-solid fa-bolt" style="color: #FFD700;"></i> Acesso imediato
+                            </span>
                         </div>
                     </form>
                 </div>
 
-                <div class="trust-badges-row">
-                    <div class="trust-badge">
-                        <i class="fa-solid fa-check"></i> +847 downloads
-                    </div>
-                    <div class="trust-badge">
-                        <i class="fa-solid fa-shield"></i> Dados protegidos
-                    </div>
-                    <div class="trust-badge">
-                        <i class="fa-solid fa-envelope"></i> E-mail instantâneo
-                    </div>
-                    <div class="trust-badge">
-                        <i class="fa-solid fa-bolt"></i> Acesso imediato
-                    </div>
-                </div>
+                <!-- Moved styling inline/above -->
             </div>
 
         </div>
